@@ -9,7 +9,7 @@ namespace API.Models
         public string Email { get; set; }
         public List<Policy>? Policies { get; set; }
 
-        public List<Claim>? Claims { get; set; }
+        public List<MemberClaim>? Claims { get; set; }
 
     }
 }

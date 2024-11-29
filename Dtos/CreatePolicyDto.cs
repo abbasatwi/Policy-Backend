@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.Models
+namespace API.Dtos
 {
-    public class Policy
+    public class CreatePolicyDto
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
@@ -17,9 +15,5 @@ namespace API.Models
         public DateOnly ExpiryDate { get; set; }
         [Required]
         public int PolicyTypeId { get; set; }
-        [ForeignKey("PolicyTypeId")]
-        public PolicyType? PolicyType { get; set; }
-        public List<PolicyMember>? PolicyMembers { get; set; }
-
     }
 }

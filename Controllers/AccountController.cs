@@ -41,6 +41,16 @@ namespace API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(new { message = "Validation failed.", errors });
+            }
+            var emailExists = await _userManager.FindByEmailAsync(registerDto.Email) != null;
+            if (emailExists)
+            {
+                return BadRequest(new { message = "Email already taken." });
+            }
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 

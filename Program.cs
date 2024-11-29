@@ -1,8 +1,11 @@
 using API;
 using API.Models;
+using API.Repositories;
+using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -32,6 +35,10 @@ builder.Services.AddAuthentication(opt => {
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+builder.Services.AddScoped<IPolicyRepository, PolicyRepository>();
+builder.Services.AddScoped<IPolicyService, PolicyService>();
+builder.Logging.AddConsole();
+    
 
 
 builder.Services.AddControllers();
@@ -48,9 +55,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
+// Place CORS before authentication and authorization
+app.UseCors(options =>
+{
+    options.AllowAnyHeader()
+           .AllowAnyMethod()
+           .AllowAnyOrigin();  // Allow requests from any origin (or use a specific origin in production)
+});
+
+app.UseHttpsRedirection(); // Handle HTTPS redirection (only if needed)
+app.UseAuthentication();   // Authentication middleware
+app.UseAuthorization();    // Authorization middleware
 
 app.MapControllers();
 

@@ -13,7 +13,7 @@ namespace API
         }
         public DbSet<Policy> Policies { get; set; }
         public DbSet<PolicyMember> PolicyMembers { get; set; }
-        public DbSet<Claim> Claims { get; set; }
+        public DbSet<MemberClaim> MemberClaims { get; set; }
         public DbSet<PolicyType> PolicyTypes { get; set; }
     }
 }

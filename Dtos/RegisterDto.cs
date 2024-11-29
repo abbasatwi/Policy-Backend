@@ -9,11 +9,13 @@ namespace API.Dtos
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        public string FullName { get; set; } = string.Empty;
-
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters.")]
         public string Password { get; set; } = string.Empty;
 
-        public List<string>? Roles { get; set; }
+        [Required]
+        public string FullName { get; set; } = string.Empty;
 
+        public List<string>? Roles { get; set; }
     }
+
 }

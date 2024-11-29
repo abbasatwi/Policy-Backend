@@ -2,7 +2,7 @@
 
 namespace API.Models
 {
-    public class Claim
+    public class MemberClaim
     {
         public int Id { get; set; }
         public int PolicyId { get; set; }
