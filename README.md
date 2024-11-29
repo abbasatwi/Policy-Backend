@@ -5,7 +5,7 @@ In this backend api I have implemented Crud operations on the policy entity, I h
 ## Technologies Used
 
 - **[Language]**: C#
-- **[Framework]**: .NET8
+- **[Framework]**: .NET 8.0
 - **Database**: Microsoft SQL Server
 - **Authentication**: [JWT]
 
