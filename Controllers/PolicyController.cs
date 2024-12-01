@@ -21,9 +21,12 @@ public class PolicyController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllPolicies([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
-        var policies = await _policyService.GetAllPoliciesAsync(pageNumber, pageSize);
-        return Ok(policies);
+        var result = await _policyService.GetAllPoliciesAsync(pageNumber, pageSize);
+        var totalItems = await _policyService.GetTotalPoliciesCountAsync();
+
+        return Ok(new { policies = result, totalItems });
     }
+
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPolicyById(int id)
@@ -42,7 +45,7 @@ public class PolicyController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePolicy([FromBody] CreatePolicyDto policy)
+    public async Task<IActionResult> CreatePolicy([FromBody] PolicyDto policy)
     {
         try
         {

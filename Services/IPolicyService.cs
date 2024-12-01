@@ -10,6 +10,7 @@ namespace API.Services
         Task<Policy> CreatePolicyAsync(PolicyDto policy);
         Task<Policy?> UpdatePolicyAsync(PolicyDto policy, int id);
         Task<bool> DeletePolicyAsync(int id);
+        Task<int> GetTotalPoliciesCountAsync();
     }
 
 }

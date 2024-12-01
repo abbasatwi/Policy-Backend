@@ -116,7 +116,7 @@ namespace API.Migrations
 
                     b.HasIndex("PolicyMemberId");
 
-                    b.ToTable("MemberClaims", (string)null);
+                    b.ToTable("MemberClaims");
                 });
 
             modelBuilder.Entity("API.Models.Policy", b =>
@@ -151,7 +151,7 @@ namespace API.Migrations
 
                     b.HasIndex("PolicyTypeId");
 
-                    b.ToTable("Policies", (string)null);
+                    b.ToTable("Policies");
                 });
 
             modelBuilder.Entity("API.Models.PolicyMember", b =>
@@ -172,7 +172,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PolicyMembers", (string)null);
+                    b.ToTable("PolicyMembers");
                 });
 
             modelBuilder.Entity("API.Models.PolicyType", b =>
@@ -193,7 +193,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PolicyTypes", (string)null);
+                    b.ToTable("PolicyTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -341,7 +341,7 @@ namespace API.Migrations
 
                     b.HasIndex("PolicyMembersId");
 
-                    b.ToTable("PolicyPolicyMember", (string)null);
+                    b.ToTable("PolicyPolicyMember");
                 });
 
             modelBuilder.Entity("API.Models.MemberClaim", b =>

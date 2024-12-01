@@ -9,4 +9,5 @@ public interface IPolicyRepository
     Task<Policy> CreatePolicyAsync(Policy policy);
     Task<Policy?> UpdatePolicyAsync(Policy policy);
     Task<bool> DeletePolicyAsync(int id);
+    Task<int> GetTotalPoliciesCountAsync();
 }

@@ -12,6 +12,11 @@ namespace API.Repositories
         {
             _context = context;
         }
+        public async Task<int> GetTotalPoliciesCountAsync()
+        {
+            return await _context.Policies.CountAsync();
+        }
+
         public async Task<Policy> CreatePolicyAsync(Policy policy)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();

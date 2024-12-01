@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.Dtos;
 using API.Models;
 using API.Services;
+using Microsoft.EntityFrameworkCore;
 
 public class PolicyService : IPolicyService
 {
@@ -16,6 +17,10 @@ public class PolicyService : IPolicyService
     public async Task<IEnumerable<Policy>> GetAllPoliciesAsync(int pageNumber, int pageSize)
     {
         return await _policyRepository.GetAllPoliciesAsync(pageNumber, pageSize);
+    }
+    public async Task<int> GetTotalPoliciesCountAsync()
+    {
+        return await _policyRepository.GetTotalPoliciesCountAsync();
     }
 
     public async Task<Policy?> GetPolicyByIdAsync(int id)
