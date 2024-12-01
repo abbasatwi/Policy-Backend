@@ -42,7 +42,7 @@ public class PolicyController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePolicy([FromBody] CreatePolicyDto policy)
+    public async Task<IActionResult> CreatePolicy([FromBody] PolicyDto policy)
     {
         try
         {
