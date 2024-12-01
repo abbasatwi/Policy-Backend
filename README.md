@@ -30,8 +30,9 @@ Dependencies:
 Steps to run the Api locally: 
 1. Right click on the solution and click restore nugget packages.
 2. Adjust Db connection string in the app settings.json
-3. Run update-database in the package manager console
-4. Run these scripts one by one in order to seed the database with some static data : 
+3- Build Solution
+4. Run update-database in the package manager console
+5. Run these scripts one by one in order to seed the database with some static data : 
 for policy types : 
 
 SET IDENTITY_INSERT PolicyTypes ON;
