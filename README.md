@@ -35,7 +35,7 @@ Steps to run the Api locally:
 5. Run these scripts one by one in order to seed the database with some static data : 
 for policy types : 
 
-SET IDENTITY_INSERT PolicyTypes ON;
+SET IDENTITY_INSERT [APIDB].[dbo].PolicyTypes ON;
 
 INSERT INTO [APIDB].[dbo].PolicyTypes (Id, Name, Description) VALUES
 (1, 'Health', 'Health-related policies for individuals and families'),
@@ -43,10 +43,10 @@ INSERT INTO [APIDB].[dbo].PolicyTypes (Id, Name, Description) VALUES
 (3, 'Property', 'Coverage for homes, offices, and other properties'),
 (4, 'Life', 'Life insurance plans for long-term benefits');
 
-SET IDENTITY_INSERT PolicyTypes OFF;
+SET IDENTITY_INSERT [APIDB].[dbo].PolicyTypes OFF;
  
 For policy members : 
-SET IDENTITY_INSERT PolicyMembers ON;
+SET IDENTITY_INSERT [APIDB].[dbo].PolicyMembers ON;
 
 INSERT INTO [APIDB].[dbo].PolicyMembers (Id, Name, Email) VALUES
 (1, 'John Doe', 'john.doe@example.com'),
@@ -55,28 +55,28 @@ INSERT INTO [APIDB].[dbo].PolicyMembers (Id, Name, Email) VALUES
 (4, 'Lucy Brown', 'lucy.brown@example.com'),
 (5, 'Emma Wilson', 'emma.wilson@example.com');
 
-SET IDENTITY_INSERT PolicyMembers OFF;
+SET IDENTITY_INSERT [APIDB].[dbo].PolicyMembers OFF;
 
 For policies: 
 
-SET IDENTITY_INSERT Policies ON;
+SET IDENTITY_INSERT [APIDB].[dbo].Policies ON;
 
 INSERT INTO [APIDB].[dbo].Policies (Id, Name, Description, CreationDate, EffectiveDate, ExpiryDate, PolicyTypeId) VALUES
 (1, 'John Health Plan', 'Health insurance coverage for John Doe and family', '2024-11-01', '2024-11-15', '2025-11-15', 1),
 (2, 'Jane Vehicle Coverage', 'Comprehensive vehicle insurance for Jane Smith', '2024-10-01', '2024-10-15', '2025-10-15', 2),
 (3, 'Mark Property Shield', 'Insurance for Mark Taylor’s residential property', '2024-09-01', '2024-09-15', '2025-09-15', 3);
 
-SET IDENTITY_INSERT Policies OFF;
+SET IDENTITY_INSERT [APIDB].[dbo].Policies OFF;
 
 For member claims : 
 
-SET IDENTITY_INSERT MemberClaims ON;
+SET IDENTITY_INSERT [APIDB].[dbo].MemberClaims ON;
 
-INSERT INTO MemberClaims (Id, PolicyId, PolicyMemberId, ClaimDate, ClaimAmount) VALUES
+INSERT INTO [APIDB].[dbo].MemberClaims (Id, PolicyId, PolicyMemberId, ClaimDate, ClaimAmount) VALUES
 (1, 1, 1, '2024-11-15', 500.00),
 (2, 2, 2, '2024-11-16', 750.00),
 (3, 1, 3, '2024-11-17', 1000.00);
 
-SET IDENTITY_INSERT MemberClaims OFF;
+SET IDENTITY_INSERT [APIDB].[dbo].MemberClaims OFF;
 
 
