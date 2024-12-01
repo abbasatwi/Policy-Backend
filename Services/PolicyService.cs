@@ -23,9 +23,9 @@ public class PolicyService : IPolicyService
         return await _policyRepository.GetPolicyByIdAsync(id);
     }
 
-    public async Task<Policy> CreatePolicyAsync(CreatePolicyDto policyDto)
+    public async Task<Policy> CreatePolicyAsync(PolicyDto policyDto)
     {
-        // Example of additional business logic
+        
         if (policyDto.EffectiveDate < policyDto.CreationDate)
         {
             throw new ArgumentException("Effective date cannot be earlier than the creation date.");
@@ -58,6 +58,11 @@ public class PolicyService : IPolicyService
         if (existingPolicy == null)
         {
             return null; // Policy not found
+        }
+
+        if (policyDto.EffectiveDate < policyDto.CreationDate)
+        {
+            throw new ArgumentException("Effective date cannot be earlier than the creation date.");
         }
 
         if (policyDto.ExpiryDate <= policyDto.EffectiveDate)

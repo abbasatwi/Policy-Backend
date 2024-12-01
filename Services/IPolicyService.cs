@@ -7,7 +7,7 @@ namespace API.Services
     {
         Task<IEnumerable<Policy>> GetAllPoliciesAsync(int pageNumber, int pageSize);
         Task<Policy?> GetPolicyByIdAsync(int id);
-        Task<Policy> CreatePolicyAsync(CreatePolicyDto policy);
+        Task<Policy> CreatePolicyAsync(PolicyDto policy);
         Task<Policy?> UpdatePolicyAsync(PolicyDto policy, int id);
         Task<bool> DeletePolicyAsync(int id);
     }

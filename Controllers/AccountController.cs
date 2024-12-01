@@ -12,7 +12,6 @@ using System.Text;
 
 namespace API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
@@ -60,7 +59,7 @@ namespace API.Controllers
                 FullName = registerDto.FullName,
                 UserName = registerDto.Email
             };
-
+            // create user
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (!result.Succeeded)
@@ -68,6 +67,13 @@ namespace API.Controllers
                 return BadRequest(result.Errors);
             }
 
+            // check if role exists, if not to create it
+            if (!await _roleManager.RoleExistsAsync("User"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("User"));
+            }
+
+            // if user has no roles, assign the role 'User' to the user
             if (registerDto.Roles is null)
             {
                 await _userManager.AddToRoleAsync(user, "User");
@@ -140,45 +146,52 @@ namespace API.Controllers
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var key = Encoding.ASCII
-            .GetBytes(_configuration.GetSection("JWTSetting").GetSection("securityKey").Value!);
+            // Retrieve the secret key and issuer/audience from the configuration
+            var key = Encoding.UTF8.GetBytes("xyz2l303kkejoejeke23423sdfsf3r4wef4k044494kfgrerersdfe2r2errfewre4343434erererererererererr");
+            var issuer = "https://localhost:5001";
+            var audience = "https://localhost:5001";
 
+            // Retrieve the user's roles
             var roles = _userManager.GetRolesAsync(user).Result;
 
-            List<Claim> claims =
-            [
-                new (JwtRegisteredClaimNames.Email,user.Email??""),
-                new (JwtRegisteredClaimNames.Name,user.FullName??""),
-                new (JwtRegisteredClaimNames.NameId,user.Id ??""),
-                new (JwtRegisteredClaimNames.Aud,
-                _configuration.GetSection("JWTSetting").GetSection("validAudience").Value!),
-                new (JwtRegisteredClaimNames.Iss,_configuration.GetSection("JWTSetting").GetSection("validIssuer").Value!)
-            ];
+            // Create claims
+            var claims = new List<Claim>
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id), // Subject
+        new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
+        new Claim(JwtRegisteredClaimNames.Name, user.FullName ?? ""),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // Unique token identifier
+        new Claim(JwtRegisteredClaimNames.Iss, issuer),
+        new Claim(JwtRegisteredClaimNames.Aud, audience)
+    };
 
-
+            // Add roles as claims
             foreach (var role in roles)
-
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
+            // Token descriptor
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(1), // Token expiration time
+                Issuer = issuer,
+                Audience = audience,
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256
+                    SecurityAlgorithms.HmacSha256Signature
                 )
             };
 
-
+            // Create token
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
+            // Return token as string
             return tokenHandler.WriteToken(token);
-
-
         }
+
+
 
         //api/account/detail
         [HttpGet("detail")]

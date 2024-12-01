@@ -38,8 +38,12 @@ builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<A
 builder.Services.AddScoped<IPolicyRepository, PolicyRepository>();
 builder.Services.AddScoped<IPolicyService, PolicyService>();
 builder.Logging.AddConsole();
-    
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireUserRole", policy =>
+        policy.RequireRole("User")); // Add your roles here
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
