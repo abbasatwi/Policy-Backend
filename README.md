@@ -14,7 +14,7 @@ In this backend api I have implemented Crud operations on the policy entity, I h
 
 Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/your-repository.git](https://github.com/abbasatwi/Policy-Backend.git)
+   git clone https://github.com/abbasatwi/Policy-Backend.git
 
 
 Dependencies: 
