@@ -1,6 +1,6 @@
 
 Description:
-In this backend api I have implemented Crud operations on the policy entity, I have used jwt token for authentication, I have configured the app to use one role (‘User’) since there is no admin role, and I have created the entities (Policy Type, Policy Member, Member Claims) for design only and did not implement crud on it, I have used it to make relations between the tables.
+In this backend api I have implemented Crud operations on the policy entity, I have used jwt token for authentication, I have configured the app to use one role (‘User’) since there is no admin role, and I have created the entities (Policy Type, Policy Member, Member Claims) for design only and did not implement crud on it, I have used it to make relations between the tables only. I have implemented repository pattern for separating the data access and business logic and controller (repository, service, controller) where i have secured the api and handled erros.
 
 ## Technologies Used
 
@@ -31,8 +31,7 @@ Steps to run the Api locally:
 1. Right click on the solution and click restore nugget packages.
 2. Adjust Db connection string in the app settings.json
 3. Run update-database in the package manager console
-4. Add in the AspNetRoles a role (name : ‘User’, NormalizedName : ‘USER’)
-5. Run these scripts one by one in order to seed the database with some static data : 
+4. Run these scripts one by one in order to seed the database with some static data : 
 for policy types : 
 
 SET IDENTITY_INSERT PolicyTypes ON;
